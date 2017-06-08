@@ -27,6 +27,10 @@ var Doodle = function () {
       all.frame = rightContactRect;
     }
   };
+  this.setEventEnabled(true);
+  this.on('pointerdown',function(){
+    this.contact();
+  });
 };
 Doodle.prototype = Object.create(Tiny.Sprite.prototype);
 Doodle.prototype.constructor = Doodle;
@@ -61,7 +65,4 @@ var Sprites = {
     var sprite = new Tiny.Sprite(all);
     return sprite;
   },
-  getDoodle: function () {
-
-  }
 };

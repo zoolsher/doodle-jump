@@ -6,23 +6,16 @@ var StartLayer = function () {
   var sprite3 = Sprites.getBlueTap();
   var sprite4 = Sprites.getWhiteTap();
   var doodle = new Doodle();
-  sprite.setPosition(0,30);
+  sprite.setPosition(0,30); 
   sprite2.setPosition(0,60);
   sprite3.setPosition(0,90);
   sprite4.setPosition(0,120);
   doodle.setPosition(150,0);
-  doodle.on('pointerdown',function(){
-    doodle.contact();
-  });
-  sprite.setEventEnabled(true);
-  sprite.on('pointerdown', function () {
-    console.log('taped!');
-  });
   this.addChild(sprite);
-  this.addChild(sprite2);this.addChild(sprite3);
+  this.addChild(sprite2);
+  this.addChild(sprite3);
   this.addChild(sprite4);
   this.addChild(doodle);
-  window.doodle = doodle;
 };
 StartLayer.prototype = Object.create(Tiny.Container.prototype);
 StartLayer.prototype.constructor = StartLayer;
