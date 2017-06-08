@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>doodle-jump</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="full-screen" content="yes"/>
+<meta name="screen-orientation" content="portrait"/>
+<meta name="x5-fullscreen" content="true"/>
+<meta name="360-fullscreen" content="true"/>
+</head>
+<style>
+html, body, p, div {margin:0;padding:0;}
+body {background-color: #000;font-size:4vmin;}
+html, body {height: 100%}
+.bar {margin:0 auto;margin-top:40vh;height:1vmin;width:80%;border-radius:0.5vmin;overflow:hidden;background:#666;}
+.bar i {display:block;width:0;height:1vmin;background-color:#999;}
+p {margin-top:2vmin;text-align:center;color:#ddd;}
+</style>
+<body>
+<div class="bar">
+    <i id="progress"></i>
+</div>
+<p id="percent">Loading..</p>
+<script src='https://a.alipayobjects.com/g/tiny/tiny/0.2.1/tiny.debug.js'></script>
+<script src='src/Resource.js'></script>
+<script src="src/Sprites.js"></script>
+<script src='src/StartLayer.js'></script>
+<script src='main.js'></script>
+</body>
+</html>

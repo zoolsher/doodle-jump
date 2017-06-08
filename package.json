@@ -1,0 +1,20 @@
+{
+  "name": "doodle-jump",
+  "version": "0.0.1",
+  "description": "doodle jump powered by tiny.js",
+  "author": "zoolsher",
+  "scripts": {
+    "start": "node_modules/.bin/webpack-dev-server --colors --inline --quiet --hot --port 8017"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ant-tinyjs/tiny.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+  }
+}
