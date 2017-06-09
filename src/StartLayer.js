@@ -22,9 +22,9 @@ var StartLayer = function () {
   doodle.setPosition(150, 0.9 * HEIGHT);
   this.addChild(doodle);
 
-  self.on('contact',function(i){
-    if(sprites[i].y<0.7*HEIGHT){
-      this.worldGoesDown(0.8*HEIGHT-taps[i].y);
+  self.on('contacst', function (i) {
+    if (sprites[i].y < 0.7 * HEIGHT) {
+      this.worldGoesDown(0.8 * HEIGHT - taps[i].y);
     }
   });
 
@@ -37,7 +37,7 @@ var StartLayer = function () {
     doodle.m = {x: 0, y: 0};
     doodle.g = {x: 0, y: 0};
     for (var i = 0; i < sprites.length; i++) {
-      action = new Tiny.MoveTo(200, {x: sprites[i].x, y: sprites[i].y -doodle.y + 0.7*HEIGHT});
+      action = new Tiny.MoveTo(200, {x: sprites[i].x, y: sprites[i].y - doodle.y + 0.5 * HEIGHT});
       sprites[i].runAction(action);
     }
     action.onComplete = function () {
@@ -50,12 +50,19 @@ var StartLayer = function () {
   var ticker = new Tiny.ticker.Ticker();
   ticker.autostart = true;
   ticker.add(function () {
-    doodle.emit('update');
+    if (doodle.y < HEIGHT * 0.5 && doodle.v.y < 0) {
+      for (var i = 0; i < sprites.length; i++) {
+        sprites[i].y -= doodle.v.y / 100;
+      }
+      doodle.emit('update');
+    }else{
+      doodle.emit('update');
+    }
     if (doodle.v.y > 0) {
       for (var i = 0; i < sprites.length; i++) {
         if (Tiny.rectIntersectsRect(doodle, sprites[i])) {
           doodle.emit('contact', i, self);
-          self.emit('contact',i);
+          //self.emit('contact', i);
           break;
         }
       }
