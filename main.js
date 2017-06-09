@@ -2,6 +2,8 @@
 (function () {
   var config = {
     showFPS: true,
+    width:window.innerWidth,
+    height:window.innerHeight,
     renderOptions: {
       antialias: true,
       backgroundColor: 0xffffff,
