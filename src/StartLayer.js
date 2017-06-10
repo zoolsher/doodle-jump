@@ -3,30 +3,52 @@ var StartLayer = function () {
   var self = this;
   var WIDTH = window.innerWidth;
   var HEIGHT = window.innerHeight;
-  var score = 0;
-  var taps = [];
+  this.score = 0;
+  var die = false;
+  var end = false;
   var sprites = [];
-  var tmp;
-  var lasty = -HEIGHT;
-  for (var i = 0; i < 20; i++) {
-    tmp = Sprites.getGreenTap();
-    tmp.x = Math.random() * WIDTH;
-    tmp.y = lasty + Math.random() * 160;
-    lasty = tmp.y;
-    sprites.push(tmp);
-    this.addChild(tmp);
-    taps.push(new Tiny.Rectangle(tmp.x, tmp.y, tmp.width, tmp.height));
-  }
+  var initStage = function () {
+    var tmp;
+    var lasty = -HEIGHT;
+    for (var i = 0; i < 20; i++) {
+      tmp = Sprites.getGreenTap();
+      tmp.x = Math.random() * WIDTH;
+      tmp.y = lasty + Math.random() * 160;
+      lasty = tmp.y;
+      sprites.push(tmp);
+      self.addChild(tmp);
+    }
+  };
+  initStage();
+
+  var sortSprites = function () {// i can opt this... fuck...
+    for (var i = 0; i < sprites.length; i++) {
+      for (var j = i; j < sprites.length; j++) {
+        if (sprites[i].y < sprites[j].y) {
+          var t = sprites[i];
+          sprites[i] = sprites[j];
+          sprites[j] = t;
+        }
+      }
+    }
+  };
+
+  var gc = function () {
+    sortSprites();
+    console.log(sprites);
+    for (var i = 0; i < sprites.length; i++) {
+      var sprite = sprites[i];
+      if (sprite.y > HEIGHT) {
+        sprite.y = sprites[sprites.length - 1].y - Math.random() * 160;
+        sprite.x = Math.random() * (WIDTH - sprite.width);
+      }
+    }
+  };
 
   var doodle = new Doodle();
   doodle.setPosition(150, 0.9 * HEIGHT);
   this.addChild(doodle);
 
-  self.on('contacst', function (i) {
-    if (sprites[i].y < 0.7 * HEIGHT) {
-      this.worldGoesDown(0.8 * HEIGHT - taps[i].y);
-    }
-  });
 
   this.worldGoesDown = function (dy) {
     var action;
@@ -49,24 +71,52 @@ var StartLayer = function () {
 
   var ticker = new Tiny.ticker.Ticker();
   ticker.autostart = true;
+  var doodleRect = new Tiny.Rectangle(doodle.x, doodle.y + doodle.height, doodle.width, 1);
+  doodleRect.height = 1;
   ticker.add(function () {
-    if (doodle.y < HEIGHT * 0.5 && doodle.v.y < 0) {
-      doodle.y -= doodle.v.y / 100;
+    if(self.end){
+      ticker.stop();
+      return;
+    }
+    if (self.die) {
+      sortSprites();
       for (var i = 0; i < sprites.length; i++) {
         sprites[i].y -= doodle.v.y / 100;
       }
-      doodle.emit('update');
-    }else{
-      doodle.emit('update');
+      if (sprites[0].y < 0) {
+        doodle.y += doodle.v.y / 100;
+      }
+      if(doodle.y>HEIGHT){
+        self.end = true;
+        Tiny.app.replaceScene(new DieLayer(self.score));
+      }
+      // doodle.y -= doodle.v.y/100;
+      return;
     }
-    if (doodle.v.y > 0) {
+    if (doodle.y < HEIGHT * 0.5 && doodle.v.y < 0) {
+      doodle.y -= doodle.v.y / 100;
+      self.score += 1;
+      console.log("score :" + self.score);
       for (var i = 0; i < sprites.length; i++) {
-        if (Tiny.rectIntersectsRect(doodle, sprites[i])) {
+        sprites[i].y -= doodle.v.y / 100;
+      }
+      gc();
+    }
+    doodle.emit('update');
+    if (doodle.v.y > 0) {
+      doodleRect.x = doodle.x;
+      doodleRect.y = doodle.y + doodle.height;
+      for (var i = 0; i < sprites.length; i++) {
+        if (Tiny.rectIntersectsRect(doodleRect, sprites[i])) {
           doodle.emit('contact', i, self);
           //self.emit('contact', i);
           break;
         }
       }
+    }
+    sortSprites();
+    if (doodle.y > sprites[0].y || doodle.y > HEIGHT) {
+      self.die = true;
     }
   });
 
