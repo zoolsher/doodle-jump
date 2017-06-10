@@ -51,6 +51,7 @@ var StartLayer = function () {
   ticker.autostart = true;
   ticker.add(function () {
     if (doodle.y < HEIGHT * 0.5 && doodle.v.y < 0) {
+      doodle.y -= doodle.v.y / 100;
       for (var i = 0; i < sprites.length; i++) {
         sprites[i].y -= doodle.v.y / 100;
       }
