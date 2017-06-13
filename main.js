@@ -6,7 +6,7 @@
     height:window.innerHeight,
     renderOptions: {
       antialias: true,
-      backgroundColor: 0xffffff,
+      backgroundColor: 0xFEF3E8,
     },
   };
   Tiny.app = new Tiny.Application(config);
@@ -41,8 +41,16 @@
           var body = document.body;
           body.removeChild(percent);
           body.removeChild(progress.parentNode);
-
-          Tiny.app.run(new StartLayer());
+          var font = new FontFaceObserver('Gloria Hallelujah', {
+            weight: 400
+          });
+          var f = font.load();
+          f.then(function () {
+            Tiny.app.run(new StartLayer());
+          }).catch(function () {
+            console.log('Font is not available');
+            Tiny.app.run(new StartLayer());
+          });
         },
       });
     },

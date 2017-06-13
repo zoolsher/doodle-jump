@@ -1,36 +1,79 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>doodle-jump</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="full-screen" content="yes"/>
-<meta name="screen-orientation" content="portrait"/>
-<meta name="x5-fullscreen" content="true"/>
-<meta name="360-fullscreen" content="true"/>
+  <meta charset="UTF-8">
+  <title>doodle-jump</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="full-screen" content="yes"/>
+  <meta name="screen-orientation" content="portrait"/>
+  <meta name="x5-fullscreen" content="true"/>
+  <meta name="360-fullscreen" content="true"/>
 </head>
 <style>
-html, body, p, div {margin:0;padding:0;}
-body {background-color: #000;font-size:4vmin;}
-html, body {height: 100%}
-.bar {margin:0 auto;margin-top:40vh;height:1vmin;width:80%;border-radius:0.5vmin;overflow:hidden;background:#666;}
-.bar i {display:block;width:0;height:1vmin;background-color:#999;}
-p {margin-top:2vmin;text-align:center;color:#ddd;}
+  @font-face {
+    font-family: 'Gloria Hallelujah';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Gloria Hallelujah'), local('GloriaHallelujah'), url(res/fonts/font.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+  }
+
+
+  html, body, p, div {
+    margin: 0;
+    padding: 0;
+  }
+
+  /*body {background-color: #000;font-size:4vmin;}*/
+  html, body {
+    height: 100%
+  }
+
+  .bar {
+    margin: 0 auto;
+    margin-top: 40vh;
+    height: 1vmin;
+    width: 80%;
+    border-radius: 0.5vmin;
+    overflow: hidden;
+    background: #666;
+  }
+
+  .bar i {
+    display: block;
+    width: 0;
+    height: 1vmin;
+    background-color: #999;
+  }
+
+  p {
+    margin-top: 2vmin;
+    text-align: center;
+    color: #ddd;
+  }
 </style>
 <body>
 <div class="bar">
-    <i id="progress"></i>
+  <i id="progress"></i>
 </div>
 <p id="percent">Loading..</p>
-<script src='https://a.alipayobjects.com/g/tiny/tiny/0.2.1/tiny.debug.js'></script>
+<script src="src/fontfaceobserver.js"></script>
+<script>
+
+</script>
+<script src='https://a.alipayobjects.com/g/tiny/tiny/0.3.1/tiny.debug.js'></script>
 <script src="https://a.alipayobjects.com/g/tiny-plugins/tinyjs-plugin-keyboard/0.0.1/index.js"></script>
 <script src="https://a.alipayobjects.com/g/tiny-plugins/tinyjs-plugin-extract/1.0.6/index.js"></script>
+<script src="https://a.alipayobjects.com/g/tiny-plugins/tinyjs-plugin-bitmap-text/0.0.3/index.js"></script>
+<script src="src/Config.js"></script>
 <script src='src/Resource.js'></script>
 <script src="src/Sprites.js"></script>
 <script src="src/Doodle.js"></script>
 <script src='src/StartLayer.js'></script>
-<script src="src/Die.js"></script>
+<script src='src/MainLayer.js'></script>
+<script src="src/EndLayer.js"></script>
 <script src='main.js'></script>
 </body>
 </html>

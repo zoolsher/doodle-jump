@@ -1,40 +1,68 @@
-var MoveBy = function (duration, to) {
-  const action = new Tiny.Action(duration, to);
-  action.yoyo = false;
-  action.onUpdate = function (tween, object) {
-    object.setPosition(tween.x, tween.y);
-  };
-  return action;
-};
 var Doodle = function () {
   //call this var doodle = new Doodle();
   Tiny.Sprite.call(this);
   var self = this;
-  // init texture
+
+  // init texture of doodle
   var all = Tiny.TextureCache[RESOURCES['all.png']].clone();
   var height = 81;
   var contactheight = 85;
   var width = 110;
-  var rightRect = new Tiny.Rectangle(20, 120, width-20, height);
-  var leftRect = new Tiny.Rectangle(0, 120 + height, width-20, height);
-  var rightContactRect = new Tiny.Rectangle(0, 120 + 2 * height, width, contactheight);
-  var leftContactRect = new Tiny.Rectangle(0, 120 + 2 * height + contactheight, width, height);
+  var rightRect = new Tiny.Rectangle(0, 121, width, height);
+  var leftRect = new Tiny.Rectangle(0, 201, width - 20, height);
+  var rightContactRect = new Tiny.Rectangle(0, 289, width, contactheight);
+  var leftContactRect = new Tiny.Rectangle(0, 371, width, height);
   all.frame = rightRect;
-  this.goingLeft = false;
-  this.scale = {x: 0.5, y: 0.5};
   this.texture = all;
-  this.goLeft = function () {
+  /**
+   * if doodle is facing left
+   * @type {boolean}
+   */
+  this.goingLeft = false;
+  /**
+   * scale the doodle
+   * @type {{x: number, y: number}}
+   */
+  this.scale = {x: 0.5, y: 0.5};
+
+  /**
+   * goLeft func
+   * @type {function}
+   */
+  this.goLeft = function (v) {
     this.goingLeft = true;
     all.frame = leftRect;
-    self.v.x = -500;
+    if (v) {
+      self.v.x = (v+5) / 70 *800 -100;
+    } else {
+      self.v.x = -500;
+    }
     self.m.x = 10;
   };
-  this.goRight = function () {
+  /**
+   * goRight func
+   * @type {function}
+   */
+  this.goRight = function (v) {
     this.goingLeft = false;
     all.frame = rightRect;
-    self.v.x = 500;
+    if (v) {
+      self.v.x = (v-5) / 70 *800 +100;
+    } else {
+      self.v.x = 500;
+    }
     self.m.x = -10;
   };
+  /**
+   *
+   */
+  this.stopsX = function(){
+    self.m.x = 2 * self.m.x;
+  };
+  /**
+   * doodle 碰到跳台的时候会缩腿
+   * @type {function}
+   */
   this.contact = function () {
     if (this.goingLeft) {
       all.frame = leftContactRect;
@@ -42,6 +70,10 @@ var Doodle = function () {
       all.frame = rightContactRect;
     }
   };
+  /**
+   * doodle 跳起来之后再伸开腿
+   * @type {function}
+   */
   this.uncontact = function () {
     if (this.goingLeft) {
       all.frame = leftRect;
@@ -52,20 +84,50 @@ var Doodle = function () {
   //handle event
   this.setEventEnabled(true);
 
-  // handle keyboard event
-  var keyLeft = new Tiny.Keyboard(37);//left
-  var keyRight = new Tiny.Keyboard(39);//right
+  if (!Tiny.isMobile.phone) {
+    // handle keyboard event
+    var keyLeft = new Tiny.Keyboard(37);//left
+    var keyRight = new Tiny.Keyboard(39);//right
 
-  keyLeft.press = function (e) {
-    self.goLeft();
-  };
-  keyRight.press = function (e) {
-    self.goRight();
-  };
-
+    keyLeft.press = function (e) {
+      self.goLeft();
+    };
+    keyRight.press = function (e) {
+      self.goRight();
+    };
+  } else {
+    // TODO handle mobile phone
+    window.addEventListener("deviceorientation", function (event) {
+      var g = event.gamma;
+      if (g >= 5) {
+        self.goRight(g);
+        return;
+      }
+      if (g < 5) {
+        self.goLeft(g);
+        return;
+      }
+      // self.stopsX();
+    }, true);
+  }
+  /**
+   * @description 速度
+   * @type {{x: number, y: number}}
+   */
   this.v = {x: 0, y: -100};
+  /**
+   * @description 摩擦力
+   * @type {{x: number, y: number}}
+   */
   this.m = {x: 0, y: 0};
+  /**
+   * @description 重力
+   * @type {{x: number, y: number}}
+   */
   this.g = {x: 0, y: 10};
+  /**
+   * @description update 每一帧更新doodle的速度等参数
+   */
   this.on('update', function () {
     if (self.x < 0) {
       self.x = self.x + window.innerWidth
@@ -73,8 +135,8 @@ var Doodle = function () {
     if (self.x > window.innerWidth) {
       self.x = self.x - window.innerWidth;
     }
-    self.y += self.v.y / 100;
-    self.x += self.v.x / 100;
+    self.y += self.v.y / CONFIG.speed;
+    self.x += self.v.x / CONFIG.speed;
     self.v.x += self.g.x;
     self.v.y += self.g.y;
     if (self.m.x !== 0) {
@@ -96,10 +158,13 @@ var Doodle = function () {
       }
     }
   });
+  /**
+   * 发生碰撞时给doodle一个向上的速度。并不改变横向速度。
+   */
   this.on('contact', function () {
     self.v.y = -550;
     self.contact();
-    self.emit('uncontact');
+    setTimeout(function(){self.emit('uncontact')},100);
   });
   this.on('uncontact', function () {
     self.uncontact();
