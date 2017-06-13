@@ -1,4 +1,4 @@
-var Doodle = function () {
+var Doodle = function (eventEnabled) {
   //call this var doodle = new Doodle();
   Tiny.Sprite.call(this);
   var self = this;
@@ -14,6 +14,12 @@ var Doodle = function () {
   var leftContactRect = new Tiny.Rectangle(0, 371, width, height);
   all.frame = rightRect;
   this.texture = all;
+
+  /**
+   * should react the user event
+   * @type {boolean}
+   */
+  this.eventEnabled = eventEnabled === undefined;
   /**
    * if doodle is facing left
    * @type {boolean}
@@ -33,7 +39,7 @@ var Doodle = function () {
     this.goingLeft = true;
     all.frame = leftRect;
     if (v) {
-      self.v.x = (v+5) / 70 *800 -100;
+      self.v.x = (v + 5) / 70 * 800 - 100;
     } else {
       self.v.x = -500;
     }
@@ -47,7 +53,7 @@ var Doodle = function () {
     this.goingLeft = false;
     all.frame = rightRect;
     if (v) {
-      self.v.x = (v-5) / 70 *800 +100;
+      self.v.x = (v - 5) / 70 * 800 + 100;
     } else {
       self.v.x = 500;
     }
@@ -56,7 +62,7 @@ var Doodle = function () {
   /**
    *
    */
-  this.stopsX = function(){
+  this.stopsX = function () {
     self.m.x = 2 * self.m.x;
   };
   /**
@@ -83,32 +89,33 @@ var Doodle = function () {
   };
   //handle event
   this.setEventEnabled(true);
+  if (self.eventEnabled) {
+    if (!Tiny.isMobile.phone) {
+      // handle keyboard event
+      var keyLeft = new Tiny.Keyboard(37);//left
+      var keyRight = new Tiny.Keyboard(39);//right
 
-  if (!Tiny.isMobile.phone) {
-    // handle keyboard event
-    var keyLeft = new Tiny.Keyboard(37);//left
-    var keyRight = new Tiny.Keyboard(39);//right
-
-    keyLeft.press = function (e) {
-      self.goLeft();
-    };
-    keyRight.press = function (e) {
-      self.goRight();
-    };
-  } else {
-    // TODO handle mobile phone
-    window.addEventListener("deviceorientation", function (event) {
-      var g = event.gamma;
-      if (g >= 5) {
-        self.goRight(g);
-        return;
-      }
-      if (g < 5) {
-        self.goLeft(g);
-        return;
-      }
-      // self.stopsX();
-    }, true);
+      keyLeft.press = function (e) {
+        self.goLeft();
+      };
+      keyRight.press = function (e) {
+        self.goRight();
+      };
+    } else {
+      // TODO handle mobile phone
+      window.addEventListener("deviceorientation", function (event) {
+        var g = event.gamma;
+        if (g >= 5) {
+          self.goRight(g);
+          return;
+        }
+        if (g < 5) {
+          self.goLeft(g);
+          return;
+        }
+        // self.stopsX();
+      }, true);
+    }
   }
   /**
    * @description 速度
@@ -164,7 +171,9 @@ var Doodle = function () {
   this.on('contact', function () {
     self.v.y = -550;
     self.contact();
-    setTimeout(function(){self.emit('uncontact')},100);
+    setTimeout(function () {
+      self.emit('uncontact')
+    }, 100);
   });
   this.on('uncontact', function () {
     self.uncontact();

@@ -61,6 +61,14 @@ var MainLayer = function () {
   doodle.setPosition(sprites[sprites.length - 1].x, sprites[sprites.length - 1].y - doodle.height);
   this.addChild(doodle);
 
+  var score = new Tiny.BitmapText('score : ' + self.score, {
+    font: '24px font',
+    tint: 0x000000
+  });
+  score.y = 0;
+  score.x = 0;
+  self.addChild(score);
+
 
   this.worldGoesDown = function (dy) {
     var action;
@@ -86,7 +94,7 @@ var MainLayer = function () {
   var doodleRect = new Tiny.Rectangle(doodle.x, doodle.y + doodle.height, doodle.width, 1);
   doodleRect.height = 1;
   ticker.add(function () {
-
+    score.text = 'score : ' + self.score;
     if (self.die) {
       sortSprites();
       doodle.emit('update');

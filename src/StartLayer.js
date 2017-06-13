@@ -56,7 +56,7 @@ var StartLayer = function () {
     Tiny.app.replaceScene(new MainLayer());
   });
 
-  var doodle = new Doodle();
+  var doodle = new Doodle(false);
   var tap = new Sprites.getGreenTap();
 
   tap.x = width / 2 - tap.width / 2;

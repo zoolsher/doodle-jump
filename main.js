@@ -2,8 +2,8 @@
 (function () {
   var config = {
     showFPS: true,
-    width:window.innerWidth,
-    height:window.innerHeight,
+    width: window.innerWidth,
+    height: window.innerHeight,
     renderOptions: {
       antialias: true,
       backgroundColor: 0xFEF3E8,
@@ -41,16 +41,7 @@
           var body = document.body;
           body.removeChild(percent);
           body.removeChild(progress.parentNode);
-          var font = new FontFaceObserver('Gloria Hallelujah', {
-            weight: 400
-          });
-          var f = font.load();
-          f.then(function () {
-            Tiny.app.run(new StartLayer());
-          }).catch(function () {
-            console.log('Font is not available');
-            Tiny.app.run(new StartLayer());
-          });
+          Tiny.app.run(new StartLayer());
         },
       });
     },
