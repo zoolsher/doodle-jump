@@ -16,3 +16,12 @@
 - `API`: http://tinyjs.net/docs/
 - `源码`: http://gitlab.alipay-inc.com/tiny/tiny
 - `反馈`: http://gitlab.alipay-inc.com/tiny/tiny/issues
+
+## setup
+
+- 更改 package.json 中 `"start": "node_modules/.bin/webpack-dev-server --colors --inline --quiet --hot --host 0.0.0.0 --port 8017  --public {your-local-address}:8017"` 你的本机地址。
+- npm run start
+- 在手机访问 `{your-local-address}:8017`
+- 你就可以看到下图
+
+![game](https://zos.alipayobjects.com/rmsportal/bnEoUEIjGintCJPKABEJ.PNG)

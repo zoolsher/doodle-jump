@@ -4,7 +4,7 @@
   "description": "doodle jump powered by tiny.js",
   "author": "zoolsher",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --colors --inline --quiet --hot --host 0.0.0.0 --port 8017 --public 10.32.183.54:8017"
+    "start": "node_modules/.bin/webpack-dev-server --colors --inline --quiet --hot --host 0.0.0.0 --port 8017 --public {your-local-address}:8017"
   },
   "repository": {
     "type": "git",
