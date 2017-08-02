@@ -1,8 +1,8 @@
 var MainLayer = function () {
   Tiny.Container.call(this);
 
-  var WIDTH = window.innerWidth;
-  var HEIGHT = window.innerHeight;
+  var WIDTH = Tiny.WIN_SIZE.width;
+  var HEIGHT = Tiny.WIN_SIZE.height;
   for (var j = 0; j < HEIGHT / 50; j++) {
     for (var i = 0; i < WIDTH / 50; i++) {
       var alltexture = Tiny.TextureCache[RESOURCES['all.png']].clone();
@@ -33,7 +33,7 @@ var MainLayer = function () {
   };
   initStage();
 
-  var sortSprites = function () {// i can opt this......
+  var sortSprites = function () { // i can opt this......
     for (var i = 0; i < sprites.length; i++) {
       for (var j = i; j < sprites.length; j++) {
         if (sprites[i].y < sprites[j].y) {
@@ -75,11 +75,23 @@ var MainLayer = function () {
     var tmpV = doodle.v;
     var tmpM = doodle.m;
     var tmpG = doodle.g;
-    doodle.v = {x: 0, y: 0};
-    doodle.m = {x: 0, y: 0};
-    doodle.g = {x: 0, y: 0};
+    doodle.v = {
+      x: 0,
+      y: 0
+    };
+    doodle.m = {
+      x: 0,
+      y: 0
+    };
+    doodle.g = {
+      x: 0,
+      y: 0
+    };
     for (var i = 0; i < sprites.length; i++) {
-      action = new Tiny.MoveTo(200, {x: sprites[i].x, y: sprites[i].y - doodle.y + 0.5 * HEIGHT});
+      action = new Tiny.MoveTo(200, {
+        x: sprites[i].x,
+        y: sprites[i].y - doodle.y + 0.5 * HEIGHT
+      });
       sprites[i].runAction(action);
     }
     action.onComplete = function () {

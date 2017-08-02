@@ -2,8 +2,8 @@ var StartLayer = function () {
   Tiny.Container.call(this);
 
 
-  var height = window.innerHeight;
-  var width = window.innerWidth;
+  var height = Tiny.WIN_SIZE.height;
+  var width = Tiny.WIN_SIZE.width;
   for (var j = 0; j < height / 50; j++) {
     for (var i = 0; i < width / 50; i++) {
       var alltexture = Tiny.TextureCache[RESOURCES['all.png']].clone();

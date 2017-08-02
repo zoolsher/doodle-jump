@@ -2,6 +2,7 @@
 (function () {
   var config = {
     showFPS: true,
+    fixSize: true,
     width: window.innerWidth,
     height: window.innerHeight,
     renderOptions: {

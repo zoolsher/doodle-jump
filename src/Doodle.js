@@ -137,10 +137,10 @@ var Doodle = function (eventEnabled) {
    */
   this.on('update', function () {
     if (self.x < 0) {
-      self.x = self.x + window.innerWidth
+      self.x = self.x + Tiny.WIN_SIZE.width;
     }
-    if (self.x > window.innerWidth) {
-      self.x = self.x - window.innerWidth;
+    if (self.x > Tiny.WIN_SIZE.width) {
+      self.x = self.x - Tiny.WIN_SIZE.width;
     }
     self.y += self.v.y / CONFIG.speed;
     self.x += self.v.x / CONFIG.speed;
