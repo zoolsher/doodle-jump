@@ -1,6 +1,6 @@
-# 
+#
 
-> doodle jump powered by tiny.js
+> doodle jump powered by Tiny.js
 
 ![](http://tfs.alipayobjects.com/images/rmsweb/T1nqFhXdJcXXXXXXXX.png_120x120)
 
@@ -12,10 +12,8 @@
 ## 关于 Tiny.js
 
 - `官网`: http://tinyjs.net
-- `指南`: http://tinyjs.net/#/tutorial/start
-- `API`: http://tinyjs.net/docs/
-- `源码`: http://gitlab.alipay-inc.com/tiny/tiny
-- `反馈`: http://gitlab.alipay-inc.com/tiny/tiny/issues
+- `指南`: http://tinyjs.net/guide/start.html
+- `API`: http://tinyjs.net/api/
 
 ## setup
 
