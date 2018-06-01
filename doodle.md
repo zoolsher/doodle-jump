@@ -11,7 +11,7 @@ keyword: `碰撞` `简单的运动系统` `重力感应事件` `键盘事件` `E
 
 ### 二、来吧游戏跑起来
 
-  使用 [tiny-cli](http://tinyjs.net/#/tools/tinyjs-cli) 工具可以快速搭建一个适合 Tiny 游戏开发的项目框架。
+  使用 [tinyjs-cli](http://tinyjs.net/tools/#tinyjs-cli) 工具可以快速搭建一个适合 Tiny 游戏开发的项目框架。
 
 ```shell
 $ npm install tinyjs-cli -g
@@ -47,7 +47,7 @@ $ tiny init
  <i id="progress"></i>
 </div>
 <p id="percent">Loading..</p>
-<script src='https://a.alipayobjects.com/g/tiny/tiny/1.0.0/tiny.js'></script>
+<script src='https://gw.alipayobjects.com/as/g/tiny/tiny/1.1.7/tiny.js'></script>
 <script src='src/Resource.js'></script>
 <script src='src/StartLayer.js'></script>
 <script src='main.js'></script>
@@ -63,11 +63,11 @@ var RESOURCES = {
 // sounds
 };
 ```
-你可以在这里引入你想要使用的资源，也可以是 CDN 地址。当然你可能会用到雪碧图。请参考 [tinyjs-cli](http://tinyjs.net/#/tools/tinyjs-cli) 提供的工具`tiny resource`。
+你可以在这里引入你想要使用的资源，也可以是 CDN 地址。当然你可能会用到雪碧图。请参考 [tinyjs-cli](http://tinyjs.net/tools/#%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86) 提供的工具`tiny resource`。
 
 #### 2、游戏启动 `main.js`
 
-游戏启动配置，配置项可以参考 [这里](http://tinyjs.net/docs/Tiny.html#.config)
+游戏启动配置，配置项可以参考 [这里](http://tinyjs.net/guide/advanced-startup.html)
 
 ```javascript
 var config = {
@@ -131,7 +131,7 @@ StartLayer.prototype.constructor = StartLayer;
 
 #### 1、关于漂亮的字体
 
-一般的素材我们采用贴图的方式，但这次带大家体验一次 [BitmapText](http://tinyjs.net/plugins/tinyjs-plugin-bitmap-text/docs/)。 这个插件可以将如下所示的图片裁剪并贴在场景里。
+一般的素材我们采用贴图的方式，但这次带大家体验一次 [BitmapText](http://tinyjs.net/plugins/tinyjs-plugin-bitmap-text.html#docs)。 这个插件可以将如下所示的图片裁剪并贴在场景里。
 
 ![](https://gw.alipayobjects.com/zos/rmsportal/AiPgNSjOywlEBZIZhNic.png)
 
@@ -164,7 +164,7 @@ title.rotation = -3.14 / 7;
 
 启动页还有一个功能是点击开始按钮以后开始游戏，那么如何处理点击事件。
 
-Tiny 屏蔽了 click 和 touch 事件的区别，定义了`pointerdown`的事件。但是一定要记得先开启 [setEventEnabled](http://tinyjs.net/docs/Tiny.Sprite.html#setEventEnabled);
+Tiny.js 屏蔽了 click 和 touch 事件的区别，定义了`pointerdown`的事件。但是一定要记得先开启 [setEventEnabled](http://tinyjs.net/api/tiny.sprite.html#setEventEnabled);
 
 那么开始游戏这个开始的动作怎么完成呢？我们可以利用 Tiny.app 来切换场景从而达到启动和结束游戏的效果。
 
@@ -295,7 +295,7 @@ window.addEventListener('deviceorientation', function (event) {
 }, true);
 ```
 
-键盘控制这里使用 [tiny keyboard插件](http://tinyjs.net/plugins/tinyjs-plugin-keyboard/docs/)
+键盘控制这里使用 Tiny.js 的[Keyboard 插件](http://tinyjs.net/plugins/tinyjs-plugin-keyboard.html#docs)
 
 ```javascript
 var keyLeft = new Tiny.Keyboard(37);//left
